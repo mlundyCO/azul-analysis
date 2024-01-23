@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <chrono>
 
 // Deals 4*num_disks random tiles from integers 0,...,99 without replacment
 // then arranges them into d disks with 4 tiles each.
@@ -19,7 +20,7 @@ public:
 
     AzulDealer(int d) : num_disks(d), 
         disks(num_disks, std::vector<int>(5,0)),
-        engine(time(0)) 
+        engine(std::chrono::high_resolution_clock::now().time_since_epoch().count()) 
     {
         dealMethod();
         processDeal();
@@ -44,7 +45,7 @@ private:
     // Deals the tiles
     void dealMethod() {
         std::set<int> selected;
-        std::uniform_int_distribution<> distr(0, 100);
+        std::uniform_int_distribution<> distr(0, 99);
 
         while (tiles.size() < 4*num_disks) {
             int number = distr(engine);
@@ -74,7 +75,19 @@ private:
 
 
 int main() {
-    AzulDealer dealer(9);
-    std::cout << dealer.detectDups();
+    int n = 100000;
+    int count;
+    for (int d = 2; d < 10; ++d) {
+        count = 0;
+
+        for (int i = 0; i < n; ++i) {
+            AzulDealer dealer(d);
+            if (dealer.detectDups()) {
+                count++;
+            }
+        }
+        std::cout << d << "," << count << std::endl;
+    }
+
     return 0;
 }
