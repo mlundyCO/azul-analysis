@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <fstream>
 
 // Deals 4*num_disks random tiles from integers 0,...,99 without replacment
 // then arranges them into d disks with 4 tiles each.
@@ -20,7 +21,7 @@ public:
 
     AzulDealer(int d) : num_disks(d), 
         disks(num_disks, std::vector<int>(5,0)),
-        engine(std::chrono::high_resolution_clock::now().time_since_epoch().count()) 
+        engine(std::chrono::high_resolution_clock::now().time_since_epoch().count())
     {
         dealMethod();
         processDeal();
@@ -77,6 +78,15 @@ private:
 int main() {
     int n = 100000;
     int count;
+
+    std::ofstream file("results.txt");
+
+    if (!file.is_open()) {
+        std::cerr << "Unable to open file" << std::endl;
+        return 1;
+    }
+
+
     for (int d = 2; d < 10; ++d) {
         count = 0;
 
@@ -86,7 +96,7 @@ int main() {
                 count++;
             }
         }
-        std::cout << d << "," << count << std::endl;
+        file << d << "," << count << std::endl;
     }
 
     return 0;
