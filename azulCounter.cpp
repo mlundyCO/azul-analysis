@@ -86,7 +86,6 @@ int main() {
         return 1;
     }
 
-
     for (int d = 2; d < 10; ++d) {
         count = 0;
 
@@ -96,7 +95,8 @@ int main() {
                 count++;
             }
         }
-        file << d << "," << count << std::endl;
+        double proportion = static_cast<double>(count) / n;
+        file << d << "," << proportion << std::endl;
     }
 
     return 0;
