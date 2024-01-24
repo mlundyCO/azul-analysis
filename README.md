@@ -15,7 +15,16 @@ The goal of this repository is to investigate the question "How often will there
 A moment's thought indicates this problem is similar to the [Birthday Problem](https://en.wikipedia.org/wiki/Birthday_problem), which occurs whenever we ask questions like "In a random sample, what is the probability that at least two objects in the sample share some property?".
 However, unlike the birthday problem, where each birthday is assumed equally likely and the birthday of every person in the room is independently drawn with replacement, the tiles in Azul are drawn without replacement, and each possible configuration of tiles on a disk is not equally likely (it is less likely for a disk to contain 4 red tiles, than it is to contain 2 reds, a white, and a yellow). Even so, if we compute the number of possible tile configurations we can arrive at an approximation.
 
-We count by cases the number of different configurations of tiles on a disk. There are 5 cases: all 4 tiles a different color, 2 tiles the same color and the other 2 tiles different colors, 2 pairs of 2 different colors, 3 tiles the same and 1 different, and all 4 tiles the same color. For example, there are 30 different configurations of "2 same, 2 different", computed as C(5,1)*C(4,2) = 30. First choose one of the five colors to be the color with two tiles, then choose 2 of the remaining 4 colors to be the remaining two tiles. Summing the cases we find there are 70 different configurations of tiles on a disk.
+We count by cases the number of different configurations of tiles on a disk. There are 5 cases: all 4 tiles a different color, 2 tiles the same color and the other 2 tiles different colors, 2 pairs of 2 different colors, 3 tiles the same and 1 different, and all 4 tiles the same color. For example, there are 30 different configurations of "2 same, 2 different", computed as $\binom{5}{1} \binom{4}{2} = 30$. First choose one of the five colors to be the color with two tiles, then choose 2 of the remaining 4 colors to be the remaining two tiles. Summing the cases we find there are 70 different configurations of tiles on a disk. We summarize our results in the table below.
+
+| Case | Example | # configurations in case | Probability of case |
+| --- | --- | --- | --- |
+| All 4 different | RWBY | $\binom{5}{1} = 5$ | $\frac{\binom{5}{1} \binom{20}{1}^4}{\binom{100}{4}} \approx 0.204$ | 
+| 2 same 2 different | RRWY | $\binom{5}{1}\binom{4}{2} = 30$ | $\frac{\binom{5}{1} \binom{4}{2} \binom{20}{2} \binom{20}{1}^2}{\binom{100}{4}} \approx 0.581$ |
+| 2 pairs | RRWW | $\binom{5}{2} = 10$ | $\frac{\binom{5}{2} \binom{20}{2}^2}{\binom{100}{4}} \approx 0.092$|
+| 3 same 1 different | RRRW | $\binom{5}{1} \binom{4}{1} = 20$ | $\frac{\binom{5}{1} \binom{4}{1} \binom{20}{3} \binom{20}{1}}{\binom{100}{4}} \approx 0.116$ |
+| 4 same | RRRR | $\binom{5}{1} = 5$ | $\frac{\binom{5}{1} \binom{20}{4}}{\binom{100}{4}} \approx 0.006$ |
+| Totals | - | 70 | 1 |
 
 If we treat each configuration as equally likely (which, again, is an incorrect assumption used to make an approximation), and proceeding with the usual birthday problem computation with the number of "birthdays" as 70, we find that the
 probabilities of "at least two disks the same" are approximately 0.13, 0.26, and 0.41 for 5, 7, and 9 disks respectively. These are reasonably often enough that my friends and I would have noticed playing, and we suspect that the actual probabilities are higher because the probability of collisions increases if the probabilities of each configuration are not uniformly distributed.
@@ -27,4 +36,4 @@ The class `AzulCounter` in file `azulCounter.cpp` simulates the random dealing o
 The results are stored in `results.txt`, with each line indicating the the number of disks, and the frequency of occurences of duplicate tile configurations. We find in n=100,000 trials, the frequency of duplicate disk configurations are 0.17, 0.33, and 0.50 for 5, 7, and 9 disks respectively, slightly larger than our approximations above, as expected.
 
 # Further research
-Further analysis could include computing the probabilties of each of the tile configurations, using simulation to verify those computations, writing test cases for the simulation code, visualizating the relationship between the number of disks and the probability of collisions, and writing more code to simulate more of the game.
+Further analysis could include using simulation to verify some of the probability computations above, writing test cases for the simulation code, visualizating the relationship between the number of disks and the probability of collisions, optimizing the simulation code for speed, and writing more code to simulate more of the game.
