@@ -33,7 +33,7 @@ probabilities of "at least two disks the same" are approximately 0.13, 0.26, and
 The class `AzulCounter` in file `azulCounter.cpp` simulates the random dealing of tiles to disks, and has a method to detect duplicate tile configurations. For different numbers of disks, we simulate n=100,000 deals, and count the instances that have duplicate tile configurations.
 
 # Results
-The results are stored in `results.txt`, with each line indicating the the number of disks, and the frequency of occurences of duplicate tile configurations. We find in n=100,000 trials, the frequency of duplicate disk configurations are 0.17, 0.33, and 0.50 for 5, 7, and 9 disks respectively, slightly larger than our approximations above, as expected.
+The results are stored in `results.txt`, with each line indicating the number of disks, and the frequency of occurences of duplicate tile configurations. We find in n=100,000 trials, the frequency of duplicate disk configurations are 0.17, 0.33, and 0.50 for 5, 7, and 9 disks respectively, slightly larger than our approximations above, as expected.
 
 # Further research
-Further analysis could include using simulation to verify some of the probability computations above, writing test cases for the simulation code, visualizating the relationship between the number of disks and the probability of collisions, optimizing the simulation code for speed, and writing more code to simulate more of the game.
+Further analysis could include using simulation to verify some of the probability computations above, writing test cases for the simulation code, visualizing the relationship between the number of disks and the probability of collisions, optimizing the simulation code for speed, and writing more code to simulate more of the game.
